@@ -23,8 +23,11 @@ class GitOperator:
         command_val = self._read_command("git checkout " + branch_name)
         return command_val
 
-    def push(self, target_branch):
-        command_val = self._read_command("git push " + self._remote + " " + target_branch)
+    def push(self, target_branch, source_branch=""):
+        if len(source_branch) == 0:
+            command_val = self._read_command("git push " + self._remote + " " + target_branch)
+        else:
+            command_val = self._read_command("git push " + self._remote + " " + source_branch + ":" + target_branch)
         return command_val
 
     def pull(self, target_branch):

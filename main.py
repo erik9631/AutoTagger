@@ -44,8 +44,7 @@ def tag_branch(input_args):
     print(git_operator.pull(input_args.s))
     print(git_operator.pull(input_args.d))
 
-    print(git_operator.push(input_args.s))
-    print(git_operator.push(input_args.d))
+    print(git_operator.push(input_args.s, input_args.d))
     if input_args.m is not None:
         print(git_operator.tag(input_args.t, input_args.m))
     else:
