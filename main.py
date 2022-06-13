@@ -70,16 +70,18 @@ def tag_repositories(input_args):
         os.chdir(execution_dir)
 
 
-argParser = argparse.ArgumentParser("Tool that generates tags for the selected repository")
-argParser.add_argument('-d', type=str, help='Destination branch')
-argParser.add_argument('-s', type=str, help='Source branch')
-argParser.add_argument('-m', type=str, help='Tag message')
-argParser.add_argument('-t', type=str, help='tag version')
-argParser.add_argument('-r', type=str, help='the remote in the .git to use')
-argParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
+argParser = argparse.ArgumentParser("Tag Generator")
+subParsers = argParser.add_subparsers(help='Tag Generator', dest="subcommand")
 
-subParsers = argParser.add_subparsers(help='Generate tokens for the listed .git directories '
-                                           '(Or the current directory if none listed)', dest="subcommand")
+tagParser = subParsers.add_parser('tag')
+tagParser.add_argument('-d', type=str, help='Destination branch')
+tagParser.add_argument('-s', type=str, help='Source branch')
+tagParser.add_argument('-m', type=str, help='Tag message')
+tagParser.add_argument('-t', type=str, help='tag version')
+tagParser.add_argument('-r', type=str, help='the remote in the .git to use')
+tagParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
+
+
 tokenParser = subParsers.add_parser('generate-tokens')
 tokenParser.add_argument('-t', type=str, help="Token to use for the remote")
 tokenParser.add_argument('-u', type=str, help="The username from which the token was generated")
@@ -90,7 +92,7 @@ tokenParser.add_argument('--remote-new', type=str, help="The name of the new rem
 tokenParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
 
 args = argParser.parse_args()
-if args.subcommand is None:
+if args.subcommand == 'tag':
     tag_repositories(args)
 else:
     generate_remote_token(args)
