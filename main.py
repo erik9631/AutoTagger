@@ -6,6 +6,11 @@ import warnings
 import re
 
 
+def replace_directory_name(message_string, replacement):
+    result = re.sub('\\${dir}', replacement, message_string)
+    return result
+
+
 def create_remote_token(input_args):
     git_operator = GitOperations.GitOperator()
     remote_stat = git_operator.get_remote_url(input_args.remote_old)
@@ -66,6 +71,7 @@ def tag_repositories(input_args):
             warnings.warn("Path " + git_dir + "doesn't exist, trying next path...", Warning, 2)
             continue
         os.chdir(git_dir)
+        input_args.m = replace_directory_name(input_args.m, directory)
         print("Tagging git folder: " + git_dir)
         tag_branch(args)
         os.chdir(execution_dir)
@@ -81,7 +87,6 @@ tagParser.add_argument('-m', type=str, help='Tag message')
 tagParser.add_argument('-t', type=str, help='tag version')
 tagParser.add_argument('-r', type=str, help='the remote in the .git to use')
 tagParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
-
 
 tokenParser = subParsers.add_parser('generate-tokens')
 tokenParser.add_argument('-t', type=str, help="Token to use for the remote")
