@@ -40,6 +40,8 @@ def tag_branch(input_args):
         git_operator.set_remote(input_args.r)
 
     print(git_operator.checkout(input_args.s))
+
+    print(git_operator.pull(input_args.s))
     print(git_operator.pull(input_args.d))
 
     print(git_operator.push(input_args.s))
