@@ -81,12 +81,12 @@ argParser.add_argument('-dir', type=str, nargs='*', help='directory or list of g
 subParsers = argParser.add_subparsers(help='Generate tokens for the listed .git directories '
                                            '(Or the current directory if none listed)', dest="subcommand")
 tokenParser = subParsers.add_parser('generate-tokens')
-tokenParser.add_argument('-t', type=str, help="Token to use for the remote", required=True)
-tokenParser.add_argument('-u', type=str, help="The username from which the token was generated", required=True)
+tokenParser.add_argument('-t', type=str, help="Token to use for the remote")
+tokenParser.add_argument('-u', type=str, help="The username from which the token was generated")
 tokenParser.add_argument('--remote-old', type=str, help="The existing remote from which the link will be generated",
                          required=True)
 tokenParser.add_argument('--remote-new', type=str, help="The name of the new remote for which the link will be "
-                                                        "generated", required=True)
+                                                        "generated")
 tokenParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
 
 args = argParser.parse_args()
