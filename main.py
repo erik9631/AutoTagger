@@ -7,7 +7,7 @@ import re
 
 
 def replace_directory_name(message_string, replacement):
-    result = re.sub('\\${dir}', replacement, message_string)
+    result = re.sub('@dir', replacement, message_string)
     return result
 
 
@@ -83,7 +83,7 @@ subParsers = argParser.add_subparsers(help='Tag Generator', dest="subcommand")
 tagParser = subParsers.add_parser('tag')
 tagParser.add_argument('-d', type=str, help='Destination branch')
 tagParser.add_argument('-s', type=str, help='Source branch')
-tagParser.add_argument('-m', type=str, help='Tag message')
+tagParser.add_argument('-m', type=str, help='Tag message. Use ${dir} to replace with folder name')
 tagParser.add_argument('-t', type=str, help='tag version')
 tagParser.add_argument('-r', type=str, help='the remote in the .git to use')
 tagParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
