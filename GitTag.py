@@ -65,13 +65,16 @@ def tag_repositories(input_args):
         return
     execution_dir = os.getcwd()
 
+    original_message = input_args.m
+
     for directory in args.dir:
         git_dir = os.path.abspath(directory)
         if not os.path.exists(git_dir):
             warnings.warn("Path " + git_dir + "doesn't exist, trying next path...", Warning, 2)
             continue
         os.chdir(git_dir)
-        input_args.m = replace_directory_name(input_args.m, directory)
+        if input_args.m is not None:
+            input_args.m = replace_directory_name(original_message, directory)
         print("Tagging git folder: " + git_dir)
         tag_branch(args)
         os.chdir(execution_dir)
@@ -83,7 +86,7 @@ subParsers = argParser.add_subparsers(help='Tag Generator', dest="subcommand")
 tagParser = subParsers.add_parser('tag')
 tagParser.add_argument('-d', type=str, help='Destination branch')
 tagParser.add_argument('-s', type=str, help='Source branch')
-tagParser.add_argument('-m', type=str, help='Tag message. Use ${dir} to replace with folder name')
+tagParser.add_argument('-m', type=str, help='Tag message. Use @dir to replace with folder name')
 tagParser.add_argument('-t', type=str, help='tag version')
 tagParser.add_argument('-r', type=str, help='the remote in the .git to use')
 tagParser.add_argument('-dir', type=str, nargs='*', help='directory or list of git directories to tag')
