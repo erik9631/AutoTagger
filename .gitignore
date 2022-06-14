@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 TestRepo/
+TestArgument.txt
 
 
 __pycache__/
