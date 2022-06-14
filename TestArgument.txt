@@ -1,2 +1,0 @@
--d master -s developer -t "Rev_1.0.0" -m "First release" -r origin-auth -dir TestRepo
-generate-tokens -t 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 --remote-old origin --remote-new origin-auth -u erik9631 -dir TestRepo
